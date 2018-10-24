@@ -196,25 +196,26 @@
         });
       });
       //TODO: this needs to switch the position when it is a right to left manifest
-      this.element.find('.manifest-info .window-manifest-title').qtip({
-        content: {
-          text: jQuery(this).attr('title')
-        },
-        position: {
-          my: 'top center',
-          at: 'bottom left',
-          adjust: {
-            method: 'shift',
-            x: 20,
-            y: 1
-          },
-          container: _this.element,
-          viewport: true
-        },
-        style: {
-          classes: 'qtip-dark qtip-shadow qtip-rounded'
-        }
-      });
+      // this tooltip is useless and sometimes obstruc interaction with the slot controls
+      // this.element.find('.manifest-info .window-manifest-title').qtip({
+      //   content: {
+      //     text: jQuery(this).attr('title')
+      //   },
+      //   position: {
+      //     my: 'top center',
+      //     at: 'bottom left',
+      //     adjust: {
+      //       method: 'shift',
+      //       x: 20,
+      //       y: 1
+      //     },
+      //     container: _this.element,
+      //     viewport: true
+      //   },
+      //   style: {
+      //     classes: 'qtip-dark qtip-shadow qtip-rounded'
+      //   }
+      // });
       _this.eventEmitter.publish('WINDOW_ELEMENT_UPDATED', {windowId: _this.id, element: _this.element});
 
       //clear any existing objects
