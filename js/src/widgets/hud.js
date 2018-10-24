@@ -22,7 +22,7 @@
       showImageControls = typeof this.showImageControls !== 'undefined' ? this.showImageControls : this.canvasControls.imageManipulation.manipulationLayer,
       showCanvasInfoControls = typeof this.showCanvasInfoControls !== 'undefined' ? this.showCanvasInfoControls : this.canvasControls.canvasInfo.canvasInfoLayer;
 
-      if (this.canvasInfoTplData.canvasInfo.length < 1) {
+      if (this.canvasInfoTplData && this.canvasInfoTplData.canvasInfo.length < 1) {
         showCanvasInfoControls = false;
       }
 
@@ -35,7 +35,7 @@
       })).appendTo(this.appendTo);
 
       if (showCanvasInfoControls) {
-        if (this.canvasInfoTplData.canvasInfo.length > 1) {
+        if (this.canvasInfoTplData && this.canvasInfoTplData.canvasInfo.length > 1) {
           this.canvasInfoElement = jQuery(this.canvasInfoTemplate(
             this.canvasInfoTplData
           )).appendTo(this.element);
