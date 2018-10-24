@@ -171,7 +171,11 @@
           return _this.layoutOptions[element] === false;
         });
       }
-      templateData.currentFocusClass = _this.iconClasses[_this.viewType];
+      if (_this.viewType !== 'ThumbnailsView') {
+        templateData.currentFocusClass = _this.iconClasses[_this.viewType];
+      } else {
+        templateData.currentFocusClass = 'fa fa-photo fa-lg fa-fw';
+      }
       templateData.showFullScreen = _this.fullScreen;
       templateData.userButtons = _this.userButtons;
       _this.element = jQuery(this.template(templateData)).appendTo(_this.appendTo);
@@ -730,6 +734,13 @@
           module.toggle(false);
         }
       });
+
+      if (focusState !== 'ThumbnailsView') {
+        this.element.find('.mirador-icon-thumbs-view').removeClass('selected');
+      } else {
+        this.element.find('.mirador-icon-thumbs-view').addClass('selected');
+      }
+
       this.focusModules[focusState].toggle(true);
       this.updateManifestInfo();
       this.updatePanelsAndOverlay(focusState);
@@ -761,6 +772,7 @@
           vDirectionStatus: this.vDirectionStatus
         });
       } else {
+        this.element.find('.mirador-icon-thumbs-view').addClass('selected');
         var view = this.focusModules.ThumbnailsView;
         view.updateImage(canvasID);
       }
@@ -889,7 +901,9 @@
 
     updateManifestInfo: function() {
       var _this = this;
-      _this.element.find('.mirador-icon-view-type > i:first').removeClass().addClass(_this.iconClasses[_this.viewType]);
+      if ( _this.viewType !== 'ThumbnailsView' ) {
+        _this.element.find('.mirador-icon-view-type > i:first').removeClass().addClass(_this.iconClasses[_this.viewType]);
+      }
 
       if (this.focusOverlaysAvailable[this.viewType].overlay.MetadataView) {
         this.element.find('.mirador-icon-metadata-view').addClass('selected');
@@ -1061,11 +1075,15 @@
       '{{#if ScrollView}}',
       '<li class="scroll-option"><i class="{{iconClasses.ScrollView}}"></i> {{t "scrollView"}}</li>',
       '{{/if}}',
-      '{{#if ThumbnailsView}}',
-      '<li class="thumbnails-option"><i class="{{iconClasses.ThumbnailsView}}"></i> {{t "thumbnailsView"}}</li>',
-      '{{/if}}',
+      // '{{#if ThumbnailsView}}',
+      // '<li class="thumbnails-option"><i class="{{iconClasses.ThumbnailsView}}"></i> {{t "thumbnailsView"}}</li>',
+      // '{{/if}}',
       '</ul>',
       '</a>',
+      '{{#if ThumbnailsView}}',
+      '<a href="javascript:;" class="mirador-btn mirador-tooltip mirador-icon-thumbs-view thumbnails-option" role="button" title="{{t "thumbnailsView"}}" aria-label="{{t "thumbnailsView"}}"><i class="{{iconClasses.ThumbnailsView}}"></i>',
+      '</a>',
+      '{{/if}}',
       '{{#if MetadataView}}',
       '<a href="javascript:;" class="mirador-btn mirador-icon-metadata-view mirador-tooltip" role="button" title="{{t "metadataTooltip"}}" aria-label="{{t "metadataTooltip"}}">',
       '<i class="fa fa-info-circle fa-lg fa-fw"></i>',
